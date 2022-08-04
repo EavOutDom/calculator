@@ -5,10 +5,12 @@ interface Props {
     onClick?: () => void;
     color?: string;
     isEqual?: boolean;
+    name?: string;
 }
-const Button: React.FC<Props> = ({ children, onClick, color, isEqual }) => {
+const Button: React.FC<Props> = ({ children, onClick, color, isEqual, name }) => {
     return (
         <button
+            name="name"
             onClick={onClick}
             className={`${
                 color === "red"
