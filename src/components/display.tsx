@@ -7,7 +7,7 @@ const Display: React.FC<Props> = ({ value }) => {
         <div className={"bg-[#393939] p-5"}>
             <div
                 className={
-                    "flex justify-end text-white text-2xl overflow-hidden min-h-[1.5rem] items-center"
+                    "flex justify-end text-white text-2xl overflow-hidden items-center min-h-[2rem]"
                 }
             >
                 {value}

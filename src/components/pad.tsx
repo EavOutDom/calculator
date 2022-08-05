@@ -24,6 +24,7 @@ interface Props {
     onClickDot: () => void;
     onClickEqual: () => void;
     onClickButton: (buttonType: button) => void;
+    onClickRemove: () => void;
 }
 const Pad: React.FC<Props> = ({
     onAllClear,
@@ -31,6 +32,7 @@ const Pad: React.FC<Props> = ({
     onClickDot,
     onClickEqual,
     onClickButton,
+    onClickRemove
 }) => {
     const buttons = [
         {
@@ -39,8 +41,8 @@ const Pad: React.FC<Props> = ({
             onClick: onAllClear,
         },
         {
-            name: "%",
-            onClick: onChangeSign,
+            name: "CE",
+            onClick: onClickRemove,
         },
         {
             name: "-/+",
