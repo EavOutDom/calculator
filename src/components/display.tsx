@@ -10,7 +10,7 @@ const Display: React.FC<Props> = ({ value }) => {
                     "flex justify-end text-white text-2xl overflow-hidden items-center min-h-[2rem]"
                 }
             >
-                {value}
+                {value ? value : "0"}
             </div>
         </div>
     );

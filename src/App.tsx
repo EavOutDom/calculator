@@ -19,12 +19,24 @@ type button =
     | "/"
     | "."
     | "%";
+
 const App: React.FC = () => {
-    const [result, setResult] = useState<string>("0"); //result
+    const [result, setResult] = useState<string>(""); //result
+
+    const operator = ["+", "-", "*", "/", "."];
 
     //AC
     const onAllClear = () => {
-        setResult("0");
+        setResult("");
+    };
+
+    //CE
+    const onClickRemove = () => {
+        if (result !== "0" && result.length > 1) {
+            setResult(result.slice(0, -1));
+        } else if (result.length === 1) {
+            setResult("0");
+        }
     };
 
     //+/-
@@ -37,8 +49,11 @@ const App: React.FC = () => {
 
     //.
     const onClickDot = () => {
-        if (!result.includes(".")) {
+        if (result.indexOf(".") === -1) {
             setResult(result + ".");
+        }
+        if (result === "") {
+            setResult("0.");
         }
     };
 
@@ -46,10 +61,8 @@ const App: React.FC = () => {
     const onClickEqual = () => {
         let index = 3;
         let newResult = Number(eval(result)).toFixed(index).toString();
-        if (index > 3) {
-            newResult = Number(eval(result)).toFixed(index).toString();
-        } else {
-            newResult = Number(eval(result)).toString();
+        if (newResult.includes(".000")) {
+            newResult = newResult.slice(0, -4);
         }
         try {
             setResult(newResult);
@@ -59,11 +72,29 @@ const App: React.FC = () => {
     };
 
     const onClickButton = (buttonType: button) => {
-        if (result === "0") {
-            setResult(buttonType);
-        } else {
-            setResult(result?.concat(buttonType));
+        if (
+            (operator.includes(buttonType) && result === "") ||
+            (operator.includes(buttonType) &&
+                operator.includes(result.slice(-1)))
+        ) {
+            return;
         }
+
+        setResult(result?.concat(buttonType));
+        // if (
+        //     (buttonType === "+" ||
+        //         buttonType === "-" ||
+        //         buttonType === "*" ||
+        //         buttonType === "/") &&
+        //     (result[0] === "+" ||
+        //         result[0] === "-" ||
+        //         result[0] === "*" ||
+        //         result[0] === "/")
+        // ) {
+        //     setResult(result[0]?.replace(buttonType, "0").concat(buttonType));
+        // } else {
+        //     setResult(result?.concat(buttonType));
+        // }
     };
 
     return (
@@ -76,6 +107,7 @@ const App: React.FC = () => {
                     onClickDot={onClickDot}
                     onClickEqual={onClickEqual}
                     onClickButton={onClickButton}
+                    onClickRemove={onClickRemove}
                 />
             </div>
         </div>
